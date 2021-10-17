@@ -1,0 +1,152 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+#container {
+    background-color: #003049;
+    width: 90%;
+    /* height: 500px; */
+    margin: 0 auto;
+    border: 5px solid #003049;
+    /* SETTING DISPLAY TO FLEX INITIATES THE MAIN AXIS (LEFT TO RIGHT) AND CROSS AXIS (TOP TO BOTTOM) */
+    /* THIS ALSO SQUEEZES THE ELEMENTS TO FIT WITHIN THE CONTAINER, ALONG EACH AXIS. NO WRAPPING BY DEFAULT. */
+    display: flex;
+
+    /* SET MAIN AXIS TO ROW - LEFT TO RIGHT (DEFAULT) */
+    /* flex-direction: row; */
+
+    /* SET MAIN AXIS TO ROW - RIGHT TO LEFT */
+    /* flex-direction: row-reverse; */
+
+    /* SET MAIN AXIS TO COLUMN - TOP TO BOTTOM */
+    /* flex-direction: column; */
+
+    /* SET MAIN AXIS TO COLUMN - BOTTOM TO TOP */
+    /* flex-direction: column-reverse; */
+
+    /* ALIGN THE ELEMENTS IN CONTAINER TO START OF MAIN AXIS */
+    /* justify-content: flex-start; */
+
+    /* ALIGN THE ELEMENTS IN CONTAINER TO CENTRE OF MAIN AXIS */
+    /* justify-content: center; */
+    
+    /* ALIGN THE ELEMENTS IN CONTAINER TO END OF MAIN AXIS */
+    /* justify-content: flex-end; */
+    
+    /* ALIGN THE ELEMENTS WITH EQUAL DISTANCES BETWEEN ELEMENTS (NOT ON OUTSIDE EDGES OR ELEMENT-CONTAINER) ON THE MAIN AXIS */
+    /* justify-content: spcae-between; */
+
+    /* ALIGN ELEMENTS ON THE MAIN AXIS SUCH THAT EACH ELEMENT HAS THE SAME AMOUNT OF SPACE AROUND IT 
+    ( THE ELEMENT-ELEMENT DISTANCE IS DOUBLE OF ELEMENT-CONTAINER DISTANCE) */
+    /* justify-content: space-around; */
+
+    /* ALIGN ELEMENTS ON THE MAIN AXIS SUCH THAT THE ELEMENT TO ELEMENT AND ELEMENT TO CONTAINER DISTANCES ARE ALL EQUAL.
+    justify-content: space-evenly; */
+
+    /* ALIGN THE ELEMENTS IN CONTAINER TO START OF ELEMENTS/TEXT WITHIN THEM, ALONG THE CROSS-AXIS */
+    /* align-items: baseline; */
+
+    /* ALIGN THE ELEMENTS IN CONTAINER TO START OF CROSS AXIS */
+    /* align-items: flex-start; */
+
+    /* ALIGN THE ELEMENTS IN CONTAINER TO END OF CROSS AXIS */
+    /* align-items: flex-end; */
+
+    /* WRAP ELEMENTS IN THE CROSS AXIS WHICH IS TOP - BOTTOM FOR ROW MAIN AXIS AND LEFT- TO RIGHT FOR COLUMN MAIN AXIS BY DEFAULT */
+    /* flex-wrap: wrap; */
+
+    /* ELEMENTS ARE BY DEFAULT ALIGNED ACROSS THE MAIN AXIS WITHOUT WRAPPING ACROSS THE CROSS AXIS */
+    /* flex-wrap: nowrap; */
+
+    /* REVERSE THE CROSS AXIS DIRECTION, WRAP ELEMENTS IN THE REVERSED CROSS AXIS */
+    /* flex-wrap: wrap-reverse; */
+
+    /* ALIGN THE ELEMENTS OF THE CONTAINER TO THE CENTRE OF THE CROSS AXIS. THIS PROPERTY DOES NOTHING IF FLEX WRAP IS TURNED OFF */
+    /* align-content: center; */
+    
+    /* ALIGN THE ELEMENTS OF THE CONTAINER ACROSS THE CROSS AXIS WITH EQUAL SPACE BETWEEN THE ELEMENTS AND NO ELEMENT-CONTAINER SPACE. */
+    /* align-content: space-between; */
+
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+
+#container div {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    font-size: 4em;
+    /* USED TO SET WIDTH WHEN MAIN AXIS IS ROW AND HEIGHT WHEN MAIN AXIS IS COLUMN FOR THE ELEMENTS. OTHER HEIGHT AND WIDTH
+    HEIGHT DECLARATIONS ARE OVERRIDDEN BY FLEX BASIS. */
+    /* flex-basis: 400px; */
+    flex-basis: 200px;
+}
+
+div:nth-of-type(2) {
+        /* CONTROL ALIGNMENT OF INDIVIDUAL ELEMENTS IN THE CROSS AXIS. HERE WE ALIGN THE THIRD DIV IN CONTAINER TO CENTRE OF CROSS AXIS*/
+        align-self: center;
+}
+
+
+
+div:nth-of-type(3) {
+    /* CONTROL ALIGNMENT OF INDIVIDUAL ELEMENTS IN THE CROSS AXIS. HERE WE ALIGN THE THIRD DIV IN CONTAINER TO END OF CROSS AXIS*/
+    align-self: flex-end;
+}
+
+
+div:nth-of-type(1) {
+    /* CONTROL ALIGNMENT OF INDIVIDUAL ELEMENTS IN THE CROSS AXIS. HERE WE ALIGN THE THIRD DIV IN CONTAINER TO START OF CROSS AXIS*/
+    align-self: flex-start;
+    /* MAKES AN ELEMENT TAKE UP ALL THE EXTRA SPACE AVAILABLE IN THE CONTAINER. FLEX GROW TAKES A UNITLESS NUMBER */
+    /* YOU CAN SET THE MIN WIDTH, MAX WIDTH, MIN HEIGHT, MAX HEIGHT TO CONTROL WHEN THE GROWTH STOPS AND EXTRA SPACE IS ADDED WHILE RESIZING */
+    flex-grow: 1;
+    /* max-width: 300px; */
+
+    /* SIMILARLY THE RATIO OF SHRINKING WHEN NOT ENOUGH SPACE IS AVAILABLE FOR THE ELEMENTS IN THE CONTAINER CAN BE SET. */
+    flex-shrink: 2;
+}
+
+div:nth-of-type(5) {
+    /* MAKES AN ELEMENT TAKE UP ALL THE EXTRA SPACE AVAILABLE IN THE CONTAINER. FLEX GROW TAKES A UNITLESS NUMBER */
+    /* IN THIS CASE, THIS DIV WILL GROW TWICE AS MUCH AND TAKE UP TWICE THE SPACE COMPARED TO THE PREVIOUS ELEMENT WE DECLARED GROWTH ON. */
+    flex-grow: 2;
+}
+
+div:nth-of-type(3) {
+    flex-shrink: 6;
+}
+
+div:nth-of-type(4) {
+    flex-grow: 3;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+    border: 5px solid black;
+    height: 500px;
+    display: flex;
+}
+
+main .sidebar {
+    background-color: #6930c3;
+
+    /* FLEX SHORTHAND SETTING FLEX GROW TO ONE. THE SECOND VALUE SPECIFIES THE SHRINK PROPERTY OF THE FLEX ELEMENT */ 
+    /* THE THIRD VALUE (FLEX-BASIS) SETS THE SIZE OF THE FLEX ELEMENT ON MAIN AXIS. */
+    /* FLEX-BASIS TAKES PRIORITY OVER HEIGHT AND WIDTH DECLARATIONS FOR AN ELEMENT */
+    flex: 1 2 300px;
+    border: 2px solid white;
+}
+
+main .maincontent {
+    background-color: #80ffdb;
+    flex: 1 1 800px;
+}
