@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Events</title>
+</head>
+
+<body>
+    <h1>Events</h1>
+    <!-- bad approaches -->
+    <button onclick="alert('you clicked me'); alert('stop clicking !')">Click Me!</button>
+    <!-- <button ondblclick="alert('you clicked me'); alert('stop clicking !')">Click Me too!</button> -->
+    <!-- whatever statements are given inline to the onclick attribute, will be wrapped into a function and can be viewed in the DOM. 
+    But setting events this way is bad practice. We always setup events only through javascript even though it does not show up in the DOM -->
+    <button id="v2">Click Me - 2nd Version</button>
+    <button id="v3">Click Me - 3rd Version</button>
+    <button id="tas">Twist & Shout</button>
+    <script src="app.js"></script>
+</body>
+
+</html>
