@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Comment</title>
+</head>
+
+<body>
+    <h1>Make a new Comment</h1>
+    <!-- Send a post request to localhost:3000/comments when the form is submitted -->
+    <!-- This will add the new comment to the comments array using a POST request to '/comments' route -->
+    <form action="/comments" method="post">
+        <section>
+            <label for="username">Enter Username</label>
+            <input type="text" placeholder="Username" name="username" id="username">
+        </section>
+        <section>
+            <label for="comment">Comment Text</label>
+            <br>
+            <textarea name="comment" id="comment" cols="30" rows="5"></textarea>
+        </section>
+        <button>Submit</button>
+    </form>
+    <a href="/comments">Back to Index</a>
+</body>
+
+</html>

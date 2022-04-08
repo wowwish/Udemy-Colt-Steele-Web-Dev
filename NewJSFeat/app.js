@@ -40,6 +40,7 @@
 
 
 // SPREAD 
+// Spread syntax can be used when all elements from an object or array need to be included in a list of some kind.  
 
 const max = Math.max(10, 15, 20, 32) // takes as many arguments as we want
 

@@ -1,0 +1,15 @@
+<!-- including reusable template through ejs - partials-->
+<%- include('partials/head') %>
+
+
+    <%- include('partials/navbar.ejs') %>
+        <h1>All the Cats</h1>
+        <ul>
+            <% for(let cat of allCats) { %>
+
+                <li>
+                    <%= cat %>
+                </li>
+                <% } %>
+        </ul>
+        <%- include('partials/footer') %>

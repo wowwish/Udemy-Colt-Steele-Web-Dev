@@ -1,0 +1,27 @@
+<!-- Embedded javascript files can also contain standard html content -->
+<!-- including reusable template through ejs - partials-->
+<%- include('partials/head') %>
+
+    <!-- Check out the ejs_tags.txt file for the available tags in ejs and their functionality -->
+    <!-- Or check out https://ejs.co/ -->
+    <!-- Remember, the closing tag will be always '%>' -->
+    <!-- Also rememver that TEMPLATING WORKS ONLY IN '.ejs' FILES, NOT IN REGULAR '.html' FILES -->
+
+
+    <%- include('partials/navbar.ejs') %>
+        <h1>
+            <!-- The Home Page <%= 4 + 5 + 1 %> -->
+            The Home Page <%= 'Hello world' .toUpperCase() %>
+        </h1>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla veniam labore suscipit, harum voluptas
+            voluptate
+            ad quaerat, eos voluptates beatae molestias consequuntur aliquam enim! Quasi in rerum numquam eos earum.
+            Lorem
+            ipsum dolor sit, amet consectetur adipisicing elit. Molestiae quo molestias esse, fugiat explicabo quod
+            corrupti
+            ex quisquam tempore iure, cupiditate nisi. Quas itaque aspernatur rerum aliquam magnam eaque sint?</p>
+
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. At tempore iure ea minus libero consequuntur,
+            voluptatibus molestias, eaque laboriosam ratione laudantium. Minima quos tenetur quibusdam voluptatem a
+            voluptates nisi quia.</p>
+        <%- include('partials/footer') %>

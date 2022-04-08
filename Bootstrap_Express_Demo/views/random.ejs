@@ -1,0 +1,20 @@
+<!-- including reusable template through ejs - partials-->
+<%- include('partials/head') %>
+
+
+    <%- include('partials/navbar.ejs') %>
+        <h1>
+            Your random number is: <%= bubbles %>
+                <!-- We can use ejs tags to simply evaluate JS code without rendering anything -->
+                <% if(bubbles % 2==0) { %>
+                    <h2>That is an even number!</h2>
+                    <% } else { %>
+                        <h2>That is an odd number!</h2>
+                        <% } %>
+                            <h3>
+                                That number is <%= bubbles % 2==0 ? 'EVEN' : 'ODD' %>
+                            </h3>
+                            <!-- This allows us to add logic and control other parts of the template -->
+                            <!-- Here we add egular JS to control the flow in this template -->
+        </h1>
+        <%- include('partials/footer') %>
