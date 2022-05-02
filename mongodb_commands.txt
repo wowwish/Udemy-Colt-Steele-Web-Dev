@@ -1,0 +1,40 @@
+# GET HELP
+help
+
+# USE A PRE-EXISTING DATABASE OF THE SAME NAME OR CREATE ONE AND USE IT
+use animalShelter
+
+# INSERT MANY DOCUMENTS USING A SINGLE COMMAND INTO THE dogs COLLECTION. CREATES A dogs COLLECTION IF IT DOES NOT EXIST
+db.dogs.insertMany([
+    {name: "Rusty", breed: 'Mutt', age: 3, weight: 25, size: 'M', personality: {catFriendly: true, childFriendly: true}}, 
+    {name: 'Chungus', breed: 'Husky', age: 3, weight: 65, size: 'L', personality: {catFriendly: false, childFriendly: true}}, 
+    {name: 'Bella', breed: 'Chihuahua', age: 8, weight: 7, size: 'S', personality: {catFriendly: false, childFriendly: false}}, 
+    {name: 'Malakai', breed: 'Great Pyrenees', age: 2, weight: 110, size: 'L', personality: {catFriendly: false, childFriendly: true}}, 
+    {name: 'Dodger', breed: 'Corgi', age: 10, weight: 31, size: 'M', personality: {catFriendly: true, childFriendly: true}}, 
+    {name: 'Mishka', breed: 'Corgi', age: 13, weight: 27, size: 'M', personality: {catFriendly: true, childFriendly: true}}
+    ])
+
+# QUERY THE dogs COLLECTION
+db.dogs.find({name: "Charlie"})
+
+# PRINT THE ENTIRE COLLECTION
+db.dogs.find({})
+
+# USING QUERY OPERATORS
+db.dogs.find({age: {$gt: 8}})
+db.dogs.find({age: {$gte: 10}})
+db.dogs.find({breed: {$in: ['Mutt', 'Corgi', 'Chihuahua']}, age: {$lt: 10}})
+db.dogs.find({breed: {$nin: ['Mutt', 'Corgi', 'Chihuahua']}, age: {$ne: 3}})
+db.dogs.find({$or: [{'personality.catFriendly': true}, {age: {$lte: 2}}]})
+
+
+# QUERY dogs FOR DOCUMENTS WHICH HAVE childFriendly PROPERTY WITHIN personality PROPERTY SET TO true AND SIZE IS 'M'
+db.dogs.find({'personality.childFriendly': true, size: 'M'})
+
+# DELETE THE ENTIRE dogs COLLECTION IF IT EXISTS
+db.dogs.deleteMany({})
+
+# UPDATE THE dogs COLLECTION BY ADDING ADDITIONAL PROPERTIES TO THE QUERIED DOCUMENTS
+db.dogs.updateMany({'personality.catFriendly': true}, {$set: {isAvailable: false}})
+db.dogs.updateOne({name: "Charlie"}, {$set: {age: 5, breed: "Lab"}})
+
