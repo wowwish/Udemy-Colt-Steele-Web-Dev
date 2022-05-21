@@ -161,8 +161,9 @@ app.listen(3000, () => {
 
 // Without a response from the Server, the browser will just keep waiting for a response.
 
-// TO AUTOMATICALLY RESTART THE SERVER WHENEVER YOU CHANGE THE EXPRESS CODE, ONE OPTION IS TO USE THE 'nodemon' PACKAGE
 // RUN: node index.js
 
+// TO AUTOMATICALLY RESTART THE SERVER WHENEVER YOU CHANGE THE EXPRESS CODE, ONE OPTION IS TO USE THE 'nodemon' PACKAGE
 // USING NODEMON FOR SERVER AUTO RESTART ON CODE UPDATES:
-// RUN: "npm install -g nodemon" to install, use "nodemon --watch 'index.js' --exec 'node index.js'" to run the server script
+// RUN: "npm install -g nodemon" to install, use "nodemon -l index.js'" to run the server script
+// YOU CAN USE 'rs' TO RESTART THE SERVER MANUALLY THROUGH NODEMON IF THE AUTO-RESTART DOES NOT WORK

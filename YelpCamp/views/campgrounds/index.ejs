@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate') %>
+    <!-- give relative path to the views directory -->
+    <h1>All Campgrounds</h1>
+    <div>
+        <a href="/campgrounds/new">Add Campground</a>
+    </div>
+    <ul>
+        <% for(let campground of campgrounds) { %>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <img class="image-fluid" src="<%= campground.image %>" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= campground.title %>
+                            </h5>
+                            <p class="card-text">
+                                <%= campground.description %>
+                            </p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= campground.location %>
+                                </small>
+                            </p>
+                            <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%= campground.title
+                                    %></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+    </ul>
+
+    <!-- layout(view) from ejs-mate,
+
+When called anywhere inside a template, requests that the output of the current template be passed to the given 
+view as the 'body' local. Use this to specify layouts from within your template, which is recommended with Express 3.0, 
+since the app-level layout functionality has been removed. -->
+
+    <!-- The entire content in this file will be passed as the 'body' local into the boilerplate.ejs file-->

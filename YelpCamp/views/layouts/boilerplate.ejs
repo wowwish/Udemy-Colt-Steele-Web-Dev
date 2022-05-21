@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOILERPLATE!!!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <!-- class d-flex sets the display to flexbox. Class flex-column sets the flex-direction to column. We want these 
+        changes so that the footer in the edit and new pages moves to the bottom of the page and not stick with the
+        content in the page. We achieve this with the vh-100 class setting the hight of the body. We set the margin
+        of the footer in footer.ejs to auto so that it moves to the end of the body.-->
+    <%- include('../partials/navbar') %>
+        <!-- We can use include() from ejs-mate to include content from other view templates into this file.
+            Relative pathin is used in this case. -->
+        <main class="container mt-5">
+            <%- include('../partials/flash') %>
+                <!-- flash message -->
+                <%- body %>
+        </main>
+        <%- include('../partials/footer') %>
+            <!-- We can use include() from ejs-mate to include content from other view templates into this file.
+            Relative pathin is used in this case. -->
+
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+                integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+                crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+                integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+                crossorigin="anonymous"></script>
+
+            <!-- Including static assets from the public directory that was served as the root for static files -->
+            <!-- Note the '/' in the begining of the JS script used below. Static asses should have proper 
+                    relative pathing to their root directory. -->
+            <!-- <script src="/javascripts/hello.js"></script> -->
+            <!-- JS snippet from Bootstrap for removing default validation message pop-ups and to suppress
+            the default html validation behaviour. We can add custom validation messages only when we suppress the
+            default behaviour. 
+            
+            For custom Bootstrap form validation messages, you’ll need to add the novalidate boolean attribute to 
+            your <form>. This disables the browser default feedback tooltips, but still provides access to the form 
+            validation APIs in JavaScript. Try to submit the form below; our JavaScript will intercept the submit 
+            button and relay feedback to you. When attempting to submit, you’ll see the :invalid and :valid styles 
+            applied to your form controls.
+
+            Custom feedback styles apply custom colors, borders, focus styles, and background icons to better 
+            communicate feedback. Background icons for <select>s are only available with .form-select, and not .form-control.-->
+            <script src="/javascripts/validateForms.js"></script>
+</body>
+
+</html>

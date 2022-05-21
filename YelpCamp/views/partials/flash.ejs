@@ -1,0 +1,22 @@
+<!-- SUCCESS -->
+<% if(success && success.length) { %>
+    <!-- check if 'success' is not null and not an empty array -->
+
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+
+
+
+        <!-- ERROR -->
+        <% if(error && error.length) { %>
+            <!-- check if 'error' is not null and not an empty array -->
+
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <%= error %>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <% } %>

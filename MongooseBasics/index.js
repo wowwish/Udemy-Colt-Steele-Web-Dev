@@ -30,7 +30,7 @@ mongoose.connect('mongodb://localhost:27017/movieApp')
   .catch(err => {
     console.log('OH NO ERROR!!!');
     console.log(err);
-  })
+  });
 
 // Everything in Mongoose starts with a Schema. Each schema maps to a MongoDB collection and defines the shape
 // of the documents within that collection.

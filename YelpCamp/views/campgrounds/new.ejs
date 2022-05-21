@@ -1,0 +1,72 @@
+<% layout('layouts/boilerplate') %>
+    <!-- replace the 'body' local in 'layouts/boilerplate.ejs' with all the content below in this template -->
+    <div class="row">
+        <h1 class="text-center">New Campground</h1>
+        <div class="col-6 offset-3">
+            <form action="/campgrounds" method="POST" novalidate class="validated-form">
+                <!-- The novalidate attribute is added to the form to prevent default validation behaviour in the browser.
+                This allows us to override the validation process using the form validation API through JS -->
+                <!-- We will use the class name of this form to collect its elements using JS. This class name can
+                be anything. -->
+                <!-- Title -->
+                <div class="mb-3">
+                    <!-- Remember: form-control class should be added to every text input in a form when using bootstrap
+                    styling. Similarly, form-label class should be added to every label -->
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="campground[title]" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <!-- custom validation feedback div should come right below the input -->
+                    <!-- campground[title] will put title under the 'campground: value' object when sending the post request -->
+                    <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                        to form that some input is missing -->
+                </div>
+                <!-- Location -->
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="campground[location]" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <!-- custom validation feedback div should come right below the input -->
+                    <!-- campground[location] will put 'location: value' under the campground object when sending the post request -->
+                    <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                        to form that some input is missing -->
+                </div>
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image URL</label>
+                    <input class="form-control" type="text" id="image" name="campground[image]" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <!-- custom validation feedback div should come right below the input -->
+                    <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
+                    <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                        to form that some input is missing -->
+                </div>
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Campground Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="price-label">$</span>
+                        <input id="price" type="text" class="form-control" placeholder="0.0" aria-label="price"
+                            aria-describedby="price-label" name="campground[price]" required>
+                        <!-- campground[price] will put 'price: value' under the campground object when sending the post request -->
+                        <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                        to form that some input is missing -->
+                        <div class="valid-feedback">Looks good!</div>
+                        <!-- custom validation feedback div should come right below the input -->
+                    </div>
+                    <!-- Description -->
+                    <div class="mb-3">
+                        <label class="form-label" for="description">Description</label>
+                        <textarea class="form-control" type="text" id="description" name="campground[description]"
+                            required></textarea>
+                        <div class="valid-feedback">Looks good!</div> <!-- custom validation feedback -->
+                        <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
+                        <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                        to form that some input is missing -->
+                    </div>
+                    <div class="mb-3">
+                        <button class="btn btn-success">Add Campground</button>
+                    </div>
+            </form>
+            <a href="/campgrounds">All Campgrounds</a>
+        </div>
+    </div>
