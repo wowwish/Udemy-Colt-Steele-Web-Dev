@@ -33,9 +33,14 @@ After adding this, your 'scripts' property in 'package.json' would be something 
     "start": "node app.js"
   },
 
+Also make sure that the "main" property in 'package.json' is set to "app.js" because we renamed our main 
+script in the app. By default when you run 'npm init -y', the 'main' property is set to 'index.js' which does not
+match with our script name and will hence fail the deployment to Heroku
 
 
-From the MongoDB Atlas Dashboard, go to Network Access, 'ADD IP ADDRESS' and use 'ALLOW ACCESS FROM ANYWHERE'
+
+From the MongoDB Atlas Dashboard, go to Network Access, 'ADD IP ADDRESS' and use 'ALLOW ACCESS FROM ANYWHERE'.
+You can also pre-seed the MongoDB Atlas database that was created for app deployment in production if you want.
 
 Push to remote Heroku repo:
 git remote -v (to check remote repo is from Heroku. If heroku repo is not in the list, add it using 
