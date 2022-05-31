@@ -49,7 +49,7 @@ git remote -v (to check remote repo is from Heroku. If heroku repo is not in the
 'git remote add heroku <heroku_remote_git_url>' or 'heroku git:remote -a <shrouded-woodland-85681>')
 git add .
 git commit -m "ready for deployment"
-git push heroku main
+git push heroku master
 
 Check heroku logs:
 heroku logs --tail
