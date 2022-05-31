@@ -1,0 +1,53 @@
+Install heroku CLI:
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+
+Add neurodebian key if it is not available and then retry heroku CLI installation:
+wget http://neuro.debian.net/_static/neuro.debian.net.asc
+apt-key add neuro.debian.net.asc
+
+You also require 'git' installed
+sudo apt install git
+
+After installation, login into Heroku:
+heroku login
+
+Go to the top level of your app repo where 'package.json' and 'app.js' are located,
+and run the following to create app partition space:
+git init
+heroku create
+
+change your mongoose database URL to the mongoDB Atlas cloud database url, your secret for encrypting sessions data
+and all other ENV variables for deployment in production.
+
+create a '.gitignore' file with the following content in the top-level of your app directory where 'package.json' and 'app.js' and '.env' are located:
+"""
+nodemodules
+.env
+"""
+
+also add the following to the script object within 'package.json' (this will allow heroku to start the app when it calls 'npm start'):
+ "start": "node app.js"
+After adding this, your 'scripts' property in 'package.json' would be something like this:
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+
+
+
+From the MongoDB Atlas Dashboard, go to Network Access, 'ADD IP ADDRESS' and use 'ALLOW ACCESS FROM ANYWHERE'
+
+Push to remote Heroku repo:
+git remote -v (to check remote repo is from Heroku. If heroku repo is not in the list, add it using 
+'git remote add heroku <heroku_remote_git_url>' or 'heroku git:remote -a <shrouded-woodland-85681>')
+git add .
+git commit -m "ready for deployment"
+git push heroku main
+
+Check heroku logs:
+heroku logs --tail
+
+Set up Environment Variables for the app in the production environment of Heroku from the Settings tab of the app.
+click on 'Reveal Config Vars' and Add the Key - Value pairs
+Copy The Key name and Value from our '.env' file, or use the command-line and run the following from the top-level of the app repo:
+heroku config:set <KEY>=<VALUE>                                        

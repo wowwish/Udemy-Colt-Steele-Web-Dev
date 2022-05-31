@@ -2,12 +2,24 @@
     <!-- replace the 'body' local in 'layouts/boilerplate.ejs' with all the content below in this template -->
     <div class="row">
         <h1 class="text-center">New Campground</h1>
-        <div class="col-6 offset-3">
-            <form action="/campgrounds" method="POST" novalidate class="validated-form">
+        <div class="col-md-6 offset-md-3">
+            <form action="/campgrounds" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
                 <!-- The novalidate attribute is added to the form to prevent default validation behaviour in the browser.
                 This allows us to override the validation process using the form validation API through JS -->
                 <!-- We will use the class name of this form to collect its elements using JS. This class name can
                 be anything. -->
+
+                <!-- enctype:
+
+    If the value of the method attribute is post, enctype is the MIME type of the form submission. Possible values:
+
+        application/x-www-form-urlencoded: The default value.
+        multipart/form-data: Use this if the form contains <input> elements with type=file.
+        text/plain: Introduced by HTML5 for debugging purposes.
+
+    This value can be overridden by formenctype attributes on <button>, <input type="submit">, or <input type="image"> elements.
+ -->
+
                 <!-- Title -->
                 <div class="mb-3">
                     <!-- Remember: form-control class should be added to every text input in a form when using bootstrap
@@ -31,15 +43,24 @@
                         to form that some input is missing -->
                 </div>
                 <!-- Image URL -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                     <label class="form-label" for="image">Image URL</label>
                     <input class="form-control" type="text" id="image" name="campground[image]" required>
-                    <div class="valid-feedback">Looks good!</div>
-                    <!-- custom validation feedback div should come right below the input -->
-                    <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
-                    <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                    <div class="valid-feedback">Looks good!</div> -->
+                <!-- custom validation feedback div should come right below the input -->
+                <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
+                <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
                         to form that some input is missing -->
+                <!-- </div> -->
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Choose Images</label>
+                    <input class="form-control" type="file" id="" name="image" multiple>
                 </div>
+                <!-- Note that the image will be stored in req.body.image, whereas all other details are stored in
+                    req.body.campground -->
+                <!--  The attribute multiple allows uploading multiple files -->
+
                 <!-- Price -->
                 <div class="mb-3">
                     <label for="price" class="form-label">Campground Price</label>
@@ -53,19 +74,20 @@
                         <div class="valid-feedback">Looks good!</div>
                         <!-- custom validation feedback div should come right below the input -->
                     </div>
-                    <!-- Description -->
-                    <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
-                        <textarea class="form-control" type="text" id="description" name="campground[description]"
-                            required></textarea>
-                        <div class="valid-feedback">Looks good!</div> <!-- custom validation feedback -->
-                        <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
-                        <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
+                </div>
+                <!-- Description -->
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="campground[description]"
+                        required></textarea>
+                    <div class="valid-feedback">Looks good!</div> <!-- custom validation feedback -->
+                    <!-- campground[image] will put 'image: value' under the campground object when sending the post request -->
+                    <!-- set the input to be compulsory using the required attribute so the browser warns when submitting
                         to form that some input is missing -->
-                    </div>
-                    <div class="mb-3">
-                        <button class="btn btn-success">Add Campground</button>
-                    </div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Campground</button>
+                </div>
             </form>
             <a href="/campgrounds">All Campgrounds</a>
         </div>

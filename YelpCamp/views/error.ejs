@@ -5,9 +5,14 @@
                 <h4 class="alert-heading">
                     <%= err.message %>
                 </h4>
-                <p>
-                    <%= err.stack %> // print the error stack trace
-                </p>
+                <% if (process.env.NODE_ENV !== 'production' ) { %>
+                    <p>
+                        <%= err.stack %>
+                    </p>
+                    <% } %>
+                        <!-- We print the error stack trace only in development mode. We keep single sentence errors in
+                production when the app is deployed as a precaution to limit the information available to malicious
+                users about our app's architecture/codebase and to keep the user experience smooth -->
             </div>
         </div>
     </div>

@@ -3,102 +3,97 @@ const router = express.Router();
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
 const Campground = require('../models/campground');
+const { isLoggedIn, validateCampground, isAuthor } = require('../middleware');
+const multer = require('multer'); // multer package provides middleware for uploading files through forms
+const { storage } = require('../cloudinary/'); // NodeJS automatically picks up the 'index.js' file
+// const upload = multer({ dest: 'uploads/' }); // Stores the images locally
+const upload = multer({ storage }); // stores images in the configured cloudinary storage
+// getting all route handler function from the controllers directory
+const campgrounds = require('../controllers/campgrounds');
 
 // destructuring the schema from the imported object
 const { joiValidationSchema } = require('../validationSchemas');
 
-// DEFINING DATA VALIDATION MIDDLEWARE AT THE FORM SUBMISSION LEVEL USING JOI
-const validateCampground = (req, res, next) => {
-    // const result = joiValidationSchema.validate(req.body); // returns an object with req body params and validation errors
-    // console.log(result);
-    const { error } = joiValidationSchema.validate(req.body); // destructuring and obtaining the error property fron Joi validation object
-    if (error) { // if the error key is having a defined error as value in the validation result object from Joi
-        // Remember that 'error.details' is an orray of objects. ( details: [ [Object] ] )
-        // console.log(error.details); 
-        /* EXAMPLE 'error.details' OBJECT
-          {
-          message: '"campground.price" must be greater than or equal to 0',
-          path: [ 'campground', 'price' ],
-          type: 'number.min',
-          context: { limit: 0, value: -2, label: 'campground.price', key: 'price' }
-        }
-      ] */
-        const msg = error.details.map(el => el.message).join(','); // loop through every object in 'error.details' array
-        // and join the messages with ','
-        throw new ExpressError(msg, 400);
-    } else {
-        next(); // Move on to the next middleware function / error-handler.
-    }
-}
+/* 
 
 
-router.get('/', async (req, res) => {
-    const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds });
+router.route(path):
+
+Returns an instance of a single route which you can then use to handle HTTP verbs with optional middleware. 
+Use router.route() to avoid duplicate route naming and thus typing errors.
+
+Building on the router.param() example above, the following code shows how to use router.route() to specify various 
+HTTP method handlers.
+
+const router = express.Router()
+
+router.param('user_id', (req, res, next, id) => {
+  // sample user, would actually fetch from DB, etc...
+  req.user = {
+    id,
+    name: 'TJ'
+  }
+  next()
 })
 
-router.get('/new', (req, res) => {
-    res.render('campgrounds/new');
-})
+router.route('/users/:user_id')
+  .all((req, res, next) => {
+  // runs for all HTTP verbs first
+  // think of it as route specific middleware!
+    next()
+  })
+  .get((req, res, next) => {
+    res.json(req.user)
+  })
+  .put((req, res, next) => {
+  // just an example of maybe updating the user
+    req.user.name = req.params.name
+    // save user ... etc
+    res.json(req.user)
+  })
+  .post((req, res, next) => {
+    next(new Error('not implemented'))
+  })
+  .delete((req, res, next) => {
+    next(new Error('not implemented'))
+  })
 
-// using wrapper function for error handling
-router.post('/', validateCampground, catchAsync(async (req, res, next) => { // adding 'next' argument for error-handling middleware
-    // Chaining middleware calls - First the data validation Middleware runs, and then the error Handler
-    // validateCampground() is a synchronous function, os it handles the next() call on errors automatically. But, we 
-    // need to call next() if no errors are thrown inside the validateCampground() middleware function to call the next
-    // middleware function
-    // res.send(req.body);
-    // try { // try-catch block to send error to custom erro-handling middleware
-    // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400); // throw custom error if the request 
-    // body does not contain a campground property which is itself an object matching the CampgroundSchema 
-    const campground = new Campground(req.body.campground);
-    await campground.save();
-    req.flash('success', 'Successfully made a new Campground!');
-    res.redirect(`/campgrounds/${campground._id}`);
-    // } catch (e) {
-    //   next(e);
-    // }
-}))
+This approach re-uses the single /users/:user_id path and adds handlers for various HTTP methods.
 
-router.get('/:id', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews');
-    if (!campground) {
-        req.flash('error', 'Campground not Found!');
-        return res.redirect('/campgrounds'); // We use return to stop the route-handler with this redirection
-        // and prevent the following code from running.
-    }
-    res.render('campgrounds/show', { campground });
-}))
+NOTE: When you use router.route(), middleware ordering is based on when the route is created, not when method 
+handlers are added to the route. For this purpose, you can consider method handlers to belong to the route to which 
+they were added.
 
-router.get('/:id/edit', catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
-    if (!campground) {
-        req.flash('error', 'Campground not Found!');
-        return res.redirect('/campgrounds'); // We use return to stop the route-handler with this redirection
-        // and prevent the following code from running.
-    }
-    res.render('campgrounds/edit', { campground });
-}))
 
-router.put('/:id', validateCampground, catchAsync(async (req, res) => {
-    // Chaining middleware calls - First the data validation Middleware runs, and then the error Handler
-    // validateCampground() is a synchronous function, os it handles the next() call on errors automatically. But, we 
-    // need to call next() if no errors are thrown inside the validateCampground() middleware function to call the next
-    // middleware function
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
-    // Using spread operator '...' to spread the new object into the old object
-    req.flash('success', 'Successfully updated campground!');
-    res.redirect(`/campgrounds/${campground._id}`);
+*/
 
-}))
+// ORDER OF ROUTE-HANDLERS MATTER. '/:id' would match 'new' as 'req.params.id' if its route-handler is declared before 
+// '/new' route-handler
+router.route('/')
+  .get(catchAsync(campgrounds.index))
+  // using wrapper function for error handling
+  // validateCampground should be called after multer uploads the imaeges from the form and creates an array of objects
+  // for the images in req.files. 
+  .post(isLoggedIn, upload.array('image'), validateCampground, catchAsync(campgrounds.createCampground));
+// .post(upload.array('image'), (req, res) => { // The uploaded file has the name attribute set to 'image'
+// upload.single() handles single file uploads and upload.array() handles multiple uploaded files
+// Upon submitting a new campground, you will see a new 'uploads' directory created locally, having the encoded
+// image files
+// console.log(req.body, req.files); // single file uploades will be stored in 'req.file' object. Multiple files will be
+// stored in 'req.files' object
+// res.send('IT WORKED!!');
+// });
 
-router.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted Campground!');
-    res.redirect('/campgrounds');
-})
+router.get('/new', isLoggedIn, campgrounds.renderNewForm);
+
+router.route('/:id')
+  .get(catchAsync(campgrounds.showCampground))
+  .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
+  .delete(isLoggedIn, campgrounds.deleteCampground);
+
+
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
+
 
 
 module.exports = router;

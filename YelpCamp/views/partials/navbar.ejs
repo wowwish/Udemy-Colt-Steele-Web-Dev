@@ -11,6 +11,24 @@
                 <a class="nav-link" href="/campgrounds">Campgrounds</a>
                 <a class="nav-link" href="/campgrounds/new">New Campground</a>
             </div>
+            <div class="navbar-nav ms-auto">
+                <!-- 'ms-auto' adds enough margin to the start of the div, such that is is pushed to the end -->
+                <% if(!currentUser) { %>
+                    <!-- show the two navbar elements below only when a user is not logged in -->
+                    <!-- Remember that res.locals.currentUser was set to req.user in the middleware handling flash messages -->
+                    <!-- curentUser will be undefined unless a user is logged in -->
+                    <form action="/login" method="GET">
+                        <button class="btn btn-dark">Login</button>
+                    </form>
+                    <form action="/register" method="GET">
+                        <button class="btn btn-dark">Sign Up</button>
+                    </form>
+                    <% } else { %>
+                        <!-- show the logout link only when currentUser is populated with a user object -->
+                        <form action="/logout" method="POST">
+                            <button class="btn btn-dark">Logout</button>
+                        </form>
+                        <% } %>
+            </div>
         </div>
-    </div>
 </nav>
