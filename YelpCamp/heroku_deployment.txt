@@ -35,7 +35,9 @@ After adding this, your 'scripts' property in 'package.json' would be something 
 
 Also make sure that the "main" property in 'package.json' is set to "app.js" because we renamed our main 
 script in the app. By default when you run 'npm init -y', the 'main' property is set to 'index.js' which does not
-match with our script name and will hence fail the deployment to Heroku
+match with our script name and will hence fail the deployment to Heroku.
+Add nodejs as Buildpack from the Settings Pane of the App Dashboard in Heroku if it is unable to detect the language
+of our app when pushing.
 
 
 
